@@ -1,0 +1,10 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    padding: 1vh 5vw;
+    justify-content: space-between;
+}
+
+.row.inverted {
+    flex-direction: row-reverse;
+}

@@ -1,0 +1,7 @@
+<form class="form" (ngSubmit)="onSubmit()" [formGroup]="gameForm">
+    <mat-form-field>
+        <mat-label for="fieldNumber">Liczba pól w grze</mat-label>
+        <input id="fieldNumber" matInput formControlName="fieldNumber">
+    </mat-form-field>
+    <button mat-raised-button>Wystartuj grę</button>
+</form>
