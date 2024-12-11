@@ -1,3 +1,5 @@
-export interface GameState{
-    state: number[]
+export interface GameState {
+    state: number[],
+    currentPlayer: number;
+    loading: boolean
 }
