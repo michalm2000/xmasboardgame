@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store';
 import { GameState } from "../board/model/game-state.model";
 import { GameStateActions } from './gamestate.actions';
 
-export const initialState: GameState = {state: [0,0,0,0], loading: false, currentPlayer: 0}
+export const initialState: GameState = {state: [0,0,0,0], loading: false, currentPlayer: 0, currentDiceThrow: undefined}
 export const gameStateReducer = createReducer(
     initialState,
     on(GameStateActions.incrementPlayerPosition, (_state, {player}) =>  {
@@ -14,7 +14,9 @@ export const gameStateReducer = createReducer(
      }
     ),
     on(GameStateActions.setLoading, (_state, {loading}) => ({..._state, loading})),
-    on(GameStateActions.nextPlayer, (_state) => ({..._state, currentPlayer: (_state.currentPlayer + 1) % _state.state.length }))
+    on(GameStateActions.nextPlayer, (_state) => ({..._state, currentPlayer: (_state.currentPlayer + 1) % _state.state.length })),
+    on(GameStateActions.setCurrentDiceThrow, (_state, {diceThrow}) => ({..._state, currentDiceThrow: diceThrow})),
+    on(GameStateActions.clearCurrentDiceThrow, (_state) => ({..._state, currentDiceThrow: undefined}))
 )
 
 

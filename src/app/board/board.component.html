@@ -1,12 +1,10 @@
-dupa: {{gameState$ | async}}
-<button type="button" (click)="incrementPlayerPositionBy6()">testowo czerwony + 6</button>
-<button type="button" (click)="decrementPlayerPositionBy6()">testowo czerwony - 6</button>
 <div class="main">
     <div class="control-panel">
         <app-control-panel></app-control-panel>
+        <app-scoreboard></app-scoreboard>
     </div>
     <div class="board">
-        <div class="row" *ngFor="let row of [0,1,2,3,4,5,6,7]; let currentRow=index" [class.inverted]="currentRow %2 === 1">
+        <div class="row" *ngFor="let row of [0,1,2,3,4,5,6]; let currentRow=index" [class.inverted]="currentRow %2 === 1">
             <field *ngFor="let field of [0,1,2,3,4,5,6,7,8,9,10,11]; let currentField=index" [fieldNo]="12*currentRow + currentField"></field>
         </div>
     </div>

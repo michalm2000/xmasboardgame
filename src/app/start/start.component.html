@@ -3,5 +3,18 @@
         <mat-label for="fieldNumber">Liczba pól w grze</mat-label>
         <input id="fieldNumber" matInput formControlName="fieldNumber">
     </mat-form-field>
+    <div class="slider-label">
+        <label id="example-name-label" class="example-name-label">Liczba graczy</label>
+        <label class="example-value-label"><strong>{{gameForm.value.playerNumber}}</strong></label>
+    </div>
+    <mat-slider
+        class="example-margin"
+        max="4"
+        min="2"
+        step="1"
+        [discrete]="false"
+        showTickMarks="true">
+  <input matSliderThumb formControlName="playerNumber" #slider>
+</mat-slider>
     <button mat-raised-button>Wystartuj grę</button>
 </form>

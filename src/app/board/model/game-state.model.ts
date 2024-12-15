@@ -1,5 +1,6 @@
 export interface GameState {
     state: number[],
     currentPlayer: number;
-    loading: boolean
+    loading: boolean;
+    currentDiceThrow: number | undefined;
 }

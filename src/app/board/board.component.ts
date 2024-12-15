@@ -3,37 +3,68 @@ import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { FieldComponent } from "../field/field.component";
 import { Store } from "@ngrx/store";
-import { selectGameState } from "../store/gamestate.selectors";
-import { map } from "rxjs";
+import { selectCurrentDiceThrow, selectCurrentPlayer, selectGameState } from "../store/gamestate.selectors";
+import { map, Subscription, take } from "rxjs";
 import { GameState } from "./model/game-state.model";
 import { MoveService } from "../move/move.service";
 import { ControlPanelComponent } from "../control-panel/control-panel.component";
+import { ScoreboardComponent } from "../scoreboard/scoreboard.component";
+import { QuestionDialogComponent } from "../question-dialog/question-dialog.component";
+import { MatDialog } from "@angular/material/dialog";
+import { GameStateActions } from "../store/gamestate.actions";
+import { QuestionRandomizerService } from "../questionRandomizer/question-randomizer.service";
 
 @Component({
     selector: "board",
     templateUrl: "./board.component.html",
-    imports: [CommonModule, FieldComponent, ControlPanelComponent],
-    providers: [MoveService],
+    imports: [CommonModule, FieldComponent, ControlPanelComponent, ScoreboardComponent],
+    providers: [MatDialog, MoveService],
     styleUrl: "./board.component.scss"
 })
 export class BoardComponent implements OnInit {
     gameState$ = this.store.select(selectGameState).pipe(map(state => state))
-    @Input("fieldNumber")
+    
+    currentDiceThrowSub: Subscription | null = null
+    
     fieldNumber: number = 0;
-    constructor(private route: ActivatedRoute, private store: Store<{"gameState": GameState}>, private move: MoveService){
-        store.select(selectGameState).subscribe(value => console.log(value))
+
+    constructor(private route: ActivatedRoute,
+                private store: Store<{"gameState": GameState}>,
+                private dialog: MatDialog,
+                private moveService: MoveService,
+                private questionRandomizer: QuestionRandomizerService){
     }
 
     ngOnInit() : void {
         this.fieldNumber = parseInt(this.route.snapshot.queryParamMap.get("fields")?? "30");
-    }
-    
-    incrementPlayerPositionBy6(): void{
-        this.move.incrementPlayerPosition(0, 6)
+        this.currentDiceThrowSub = this.store.select(selectCurrentDiceThrow).subscribe(currentDice => {
+            this.openDialog(currentDice)
+        });
     }
 
-    decrementPlayerPositionBy6(): void{
-        this.move.decrementPlayerPosition(0 ,6)
+    openDialog(currentDice?: number) {
+        if (currentDice) {
+            let currentPlayer!: number;
+            this.store.select(selectCurrentPlayer).pipe(take(1)).subscribe(cp => currentPlayer = cp);
+            const question = this.questionRandomizer.getARandomQuestion(currentDice)
+
+            const dialogRef = this.dialog.open(QuestionDialogComponent, {
+                data: {
+                    currentPlayer,
+                    currentDiceThrow: currentDice,
+                    question
+                }
+            })
+            dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
+                if (result) {
+                    if (result.questionAnswered) {
+                        this.moveService.incrementPlayerPosition(currentPlayer, currentDice)
+                    }
+                    this.store.dispatch(GameStateActions.clearCurrentDiceThrow())
+                    this.store.dispatch(GameStateActions.nextPlayer())
+                }
+            })
+        }
     }
     
 }

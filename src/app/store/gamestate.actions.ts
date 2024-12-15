@@ -6,6 +6,8 @@ export const GameStateActions = createActionGroup({
         'incrementPlayerPosition': props<{player: number}>(),
         'decrementPlayerPosition': props<{player: number}>(),
         'setLoading': props<{loading: boolean}>(),
-        'nextPlayer': emptyProps()
+        'nextPlayer': emptyProps(),
+        'setCurrentDiceThrow': props<{diceThrow: number}>(),
+        'clearCurrentDiceThrow': emptyProps()
     }
 })

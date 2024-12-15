@@ -1,1 +1,17 @@
-<div *ngIf="currentPlayer$ | async as current">dupa </div>
+<div class="main">Ruch drużyny {{mapPlayerNoToColor(currentPlayer$| async)}} </div>
+<div class="spinner" *ngIf="(isLoading$ | async); else elseBlock">
+    <mat-spinner></mat-spinner>
+</div>
+<ng-template #elseBlock>
+    <form class="form" [formGroup]="moveForm" (ngSubmit)="initiateMove()">
+        <mat-form-field>
+            
+            <mat-label for="diceThrowResult">Wynik rzutu kostką</mat-label>
+            <input id="diceThrowResult" matInput formControlName="diceThrowResult">
+            <mat-error *ngIf="diceThrowResult?.getError('required')">Uzupełnij liczbę wyrzuconych oczek</mat-error>
+            <mat-error *ngIf="diceThrowResult?.getError('invalidNumber')">Niepoprawna liczba oczek</mat-error>
+
+        </mat-form-field>
+        <button mat-raised-button>Wylosuj pytanie</button>
+    </form>
+</ng-template>
