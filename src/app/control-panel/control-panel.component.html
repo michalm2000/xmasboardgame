@@ -1,4 +1,4 @@
-<div class="main">Ruch drużyny {{mapPlayerNoToColor(currentPlayer$| async)}} </div>
+<h3 class="main" [style.color]="mapPlayerNoToColor(currentPlayer$ | async)">Ruch drużyny: {{mapPlayerNoToColorPolish(currentPlayer$| async)}} </h3>
 <div class="spinner" *ngIf="(isLoading$ | async); else elseBlock">
     <mat-spinner></mat-spinner>
 </div>

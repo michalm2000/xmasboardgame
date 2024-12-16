@@ -26,7 +26,7 @@ export class BoardComponent implements OnInit {
     
     currentDiceThrowSub: Subscription | null = null
     
-    fieldNumber: number = 0;
+    playerNumber: number = 0;
 
     constructor(private route: ActivatedRoute,
                 private store: Store<{"gameState": GameState}>,
@@ -36,7 +36,9 @@ export class BoardComponent implements OnInit {
     }
 
     ngOnInit() : void {
-        this.fieldNumber = parseInt(this.route.snapshot.queryParamMap.get("fields")?? "30");
+        this.playerNumber = parseInt(this.route.snapshot.queryParamMap.get("players")?? "3");
+        if (this.playerNumber < 2 || this.playerNumber > 4 ) this.playerNumber = 3;
+        this.store.dispatch(GameStateActions.setInitialState({players: this.playerNumber}))
         this.currentDiceThrowSub = this.store.select(selectCurrentDiceThrow).subscribe(currentDice => {
             this.openDialog(currentDice)
         });
@@ -65,6 +67,17 @@ export class BoardComponent implements OnInit {
                 }
             })
         }
+    }
+    
+    determineFieldType(row: number, field:number) {
+        if (row*13 + field === 7*13-1) {
+            return "finish"
+        }
+        if ((row)*13 + field === 0) return "normal"
+        if ((row*13 + field ) % 5 === 0) {
+            return "chance"
+        }
+        return "normal"
     }
     
 }

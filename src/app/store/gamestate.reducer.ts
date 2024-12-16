@@ -16,7 +16,8 @@ export const gameStateReducer = createReducer(
     on(GameStateActions.setLoading, (_state, {loading}) => ({..._state, loading})),
     on(GameStateActions.nextPlayer, (_state) => ({..._state, currentPlayer: (_state.currentPlayer + 1) % _state.state.length })),
     on(GameStateActions.setCurrentDiceThrow, (_state, {diceThrow}) => ({..._state, currentDiceThrow: diceThrow})),
-    on(GameStateActions.clearCurrentDiceThrow, (_state) => ({..._state, currentDiceThrow: undefined}))
+    on(GameStateActions.clearCurrentDiceThrow, (_state) => ({..._state, currentDiceThrow: undefined})),
+    on(GameStateActions.setInitialState, (_state, {players}) => ({..._state, state: Array(players).fill(0)}))
 )
 
 

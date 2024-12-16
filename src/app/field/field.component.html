@@ -1,5 +1,5 @@
-<div class="field">
-    <div class="header">{{fieldNo === 0 ? "Start": fieldNo}}</div>
+<div class="field" [class.chance]="type === 'chance'">
+    <div class="header">{{calculateNumber()}}</div>
         <div class="rowspace">
             <div class="field-row">
                 <div class="field-cell red" [class.invisible]="!(visiblePlayers).includes(0)"></div>

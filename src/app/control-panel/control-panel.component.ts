@@ -2,8 +2,8 @@ import { Component, output } from '@angular/core';
 import { GameState } from '../board/model/game-state.model';
 import { Store } from '@ngrx/store';
 import { selectCurrentPlayer, selectLoading } from '../store/gamestate.selectors';
-import { AsyncPipe, NgIf } from '@angular/common';
-import { mapPlayerNoToColor as colorMap } from "../utils/game.utils"
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { mapPlayerNoToColor as colorMap, mapPlayerNoToColorPolish as colorMapPolish } from "../utils/game.utils"
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select'
@@ -50,8 +50,12 @@ export class ControlPanelComponent {
       this.moveForm.markAsUntouched()
     }
 
-    mapPlayerNoToColor(player: number| null) {
+    mapPlayerNoToColor(player: number | null) {
       return colorMap(player ?? 0);
+    }
+
+    mapPlayerNoToColorPolish(player: number | null) {
+      return colorMapPolish(player ?? 0);
     }
     
     get diceThrowResult() {

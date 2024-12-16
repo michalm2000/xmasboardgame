@@ -29,7 +29,7 @@ export class StartComponent {
 
   onSubmit() : void {
     this.router.navigate(["/game"], {
-      queryParams: {fields: this.gameForm.value.fieldNumber}
+      queryParams: {fields: this.gameForm.value.fieldNumber, players: this.gameForm.value.playerNumber}
     })
   }
 
