@@ -16,13 +16,13 @@ export function mapPlayerNoToColor(number: number) {
 export function mapPlayerNoToColorPolish(number: number) {
   switch(number){
     case 0:
-      return "Czerwoni";
+      return "Drużyna Janusza";
     case 1:
-      return "Niebiescy";
+      return "Drużyna Grażyny";
     case 2:
-      return "Żółci";
+      return "Drużna Seby";
     case 3:
-      return "Zieloni";
+      return "Drużyna Karyny";
     default:
       return "Czarni"
   }
