@@ -70,11 +70,11 @@ export class BoardComponent implements OnInit {
     }
     
     determineFieldType(row: number, field:number) {
-        if (row*13 + field === 7*13-1) {
+        if (row*10 + field === 6*10-1) {
             return "finish"
         }
-        if ((row)*13 + field === 0) return "normal"
-        if ((row*13 + field ) % 5 === 0) {
+        if ((row)*10 + field === 0) return "normal"
+        if ((row*6 + field ) % 5 === 0) {
             return "chance"
         }
         return "normal"
