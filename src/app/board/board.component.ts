@@ -28,6 +28,8 @@ export class BoardComponent implements OnInit {
     
     playerNumber: number = 0;
 
+    level: 7| 8 = 7
+
     constructor(private route: ActivatedRoute,
                 private store: Store<{"gameState": GameState}>,
                 private dialog: MatDialog,
@@ -38,6 +40,11 @@ export class BoardComponent implements OnInit {
     ngOnInit() : void {
         this.playerNumber = parseInt(this.route.snapshot.queryParamMap.get("players")?? "3");
         if (this.playerNumber < 2 || this.playerNumber > 4 ) this.playerNumber = 3;
+
+        const level = parseInt(this.route.snapshot.queryParamMap.get("level")?? "")
+        level === 7 || level === 8 ? this.level = level : this.level = 7;
+        this.questionRandomizer.setLevel(this.level);
+
         this.store.dispatch(GameStateActions.setInitialState({players: this.playerNumber}))
         this.currentDiceThrowSub = this.store.select(selectCurrentDiceThrow).subscribe(currentDice => {
             this.openDialog(currentDice)

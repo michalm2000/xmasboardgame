@@ -3,6 +3,7 @@ import { GameState } from '../board/model/game-state.model';
 import { Store } from '@ngrx/store';
 import { selectCurrentPlayer, selectGameState } from '../store/gamestate.selectors';
 import { AsyncPipe, NgIf } from '@angular/common';
+import { mapPlayerNoToColorPolish } from '../utils/game.utils';
 
 @Component({
   selector: 'app-scoreboard',
@@ -17,6 +18,10 @@ export class ScoreboardComponent {
 
   constructor(private store: Store<{"gameState": GameState}>){
 
+  }
+
+  mapPlayer(number: number) {
+    return mapPlayerNoToColorPolish(number)
   }
 
 }

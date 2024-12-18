@@ -1,14 +1,14 @@
-<div *ngIf="state$ | async as state">
+<div *ngIf="state$ | async as state" class="scoreboard">
     <div *ngIf="state.length > 0"
         class="red"
-        [class.current]="(currentPlayer$ | async) === 0">Czerwoni: {{state[0]}}</div>
+        [class.current]="(currentPlayer$ | async) === 0">Drużyna {{mapPlayer(0)}}: {{state[0]}}</div>
     <div *ngIf="state.length > 1"
         class="blue"
-        [class.current]="(currentPlayer$ | async) === 1">Niebiescy: {{state[1]}}</div>
+        [class.current]="(currentPlayer$ | async) === 1">Drużyna {{mapPlayer(1)}}: {{state[1]}}</div>
     <div *ngIf="state.length > 2"
          class="yellow"
-         [class.current]="(currentPlayer$ | async) === 2">Żółci: {{state[2]}}</div>
+         [class.current]="(currentPlayer$ | async) === 2">Drużyna {{mapPlayer(2)}}: {{state[2]}}</div>
     <div *ngIf="state.length > 3"
          class="green"
-         [class.current]="(currentPlayer$ | async) === 3">Zieloni: {{state[3]}}</div>
+         [class.current]="(currentPlayer$ | async) === 3">Drużyna {{mapPlayer(3)}}: {{state[3]}}</div>
 </div>

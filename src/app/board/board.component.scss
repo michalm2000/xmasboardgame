@@ -1,13 +1,49 @@
 .row {
-    display: flex;
-    flex-direction: row;
-    padding: 1vh 0;
-    justify-content: space-between;
+    .row-with-line {
+        display: flex;
+        .vertical-line {
+            width: 1px;
+            min-height: 100px;
+            border-right: 2px dashed black;
+            position: relative;
+            right: 2.3vw;
+            top: 6vh;
+            &.inverted {
+                right: 66.6vw;
+            }
+        }
+
+        .fieldrow {
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: row;
+            padding: 1vh 0;
+            justify-content: space-between;
+    
+            
+    
+            &.inverted {
+                flex-direction: row-reverse;
+                    
+            }
+           
+        }
+        
+    }
+  
+    
+
+    .line {
+        position: relative;
+        border-bottom: 2px dashed black;
+        bottom: 7vh;
+        z-index: 1;
+    }
 }
 
-.row.inverted {
-    flex-direction: row-reverse;
-}
+
 
 .control-panel {
     height: 80vh;   

@@ -1,3 +1,10 @@
+.scoreboard {
+    font-size: large;
+    display: flex;
+    flex-direction: column;
+    gap: 4px
+}
+
 .red {
     color: red
 }

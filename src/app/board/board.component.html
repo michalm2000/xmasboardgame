@@ -2,12 +2,20 @@
     <div class="control-panel">
         <app-control-panel></app-control-panel>
         <app-scoreboard></app-scoreboard>
+        Level: {{level}}
     </div>
     <div class="board">
-        <div class="row" *ngFor="let row of [0,1,2,3,4,5]; let currentRow=index" [class.inverted]="currentRow %2 === 1">
-            <field *ngFor="let field of [0,1,2,3,4,5,6,7,8,9]; let currentField=index"
-                   [fieldNo]="10*currentRow + currentField" 
-                   [type]="determineFieldType(row, field)" ></field>
+        <div class="row" *ngFor="let row of [0,1,2,3,4,5]; let currentRow=index">
+            <div class="row-with-line">
+                <div class="fieldrow" [class.inverted]="currentRow %2 === 1">
+                    <field *ngFor="let field of [0,1,2,3,4,5,6,7,8,9]; let currentField=index"
+                        [fieldNo]="10*currentRow + currentField" 
+                        [type]="determineFieldType(row, field)" >
+                    </field>
+                </div>
+                <span class="vertical-line" [class.inverted]="currentRow %2 === 1" *ngIf="currentRow !== 5"></span>
+            </div>
+            <div class="line"></div>
         </div>
     </div>
 </div>
