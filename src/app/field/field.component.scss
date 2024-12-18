@@ -2,7 +2,7 @@
     &.chance {
         color: white;
         border: 2px solid white;
-        background-color: black;
+        background-color: #2B6013;
     }
     .header { 
         width: 1em;
@@ -13,11 +13,12 @@
         flex-direction: column;
         justify-content: space-evenly;
     }
+    color: white;
     padding: 2px;
     font-size: large;
     width: max-content;
     height: max-content;
-    border: 1px solid black;
+    border: 2px solid white;
     border-radius: 10%;
     display: flex;
     flex-direction: column;
@@ -47,7 +48,7 @@
             background-color: red;
         }
         .field-cell.blue {
-            background-color: blue;
+            background-color: white;
 
         }
         .field-cell.yellow {

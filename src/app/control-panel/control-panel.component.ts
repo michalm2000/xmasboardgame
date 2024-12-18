@@ -11,11 +11,12 @@ import { MatButtonModule} from '@angular/material/button'
 import { FormControl, Validators, ReactiveFormsModule, FormGroup, FormsModule, ValidationErrors, AbstractControl } from '@angular/forms';
 import { GameStateActions } from '../store/gamestate.actions';
 import { QuestionRandomizerService } from '../questionRandomizer/question-randomizer.service';
+import { ScoreboardComponent } from '../scoreboard/scoreboard.component';
 
 
 @Component({
   selector: 'app-control-panel',
-  imports: [AsyncPipe, NgIf, MatProgressSpinnerModule, MatInputModule, MatButtonModule, MatSelectModule, ReactiveFormsModule, FormsModule],
+  imports: [AsyncPipe, NgIf, MatProgressSpinnerModule, MatInputModule, MatButtonModule, MatSelectModule, ReactiveFormsModule, FormsModule, ScoreboardComponent],
   templateUrl: './control-panel.component.html',
   styleUrl: './control-panel.component.scss'
 })

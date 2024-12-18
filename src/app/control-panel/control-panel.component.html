@@ -1,5 +1,6 @@
 <div class="main">
     <img src="logo2137.gif" style="width: 100%;" >
+    <span>
     <h1 class="title" [style.color]="mapPlayerNoToColor(currentPlayer$ | async)">Ruch drużyny {{mapPlayerNoToColorPolish(currentPlayer$| async)}} </h1>
     <div class="spinner" *ngIf="(isLoading$ | async); else elseBlock">
         <mat-spinner></mat-spinner>
@@ -17,4 +18,6 @@
             <button mat-raised-button>Wylosuj pytanie</button>
         </form>
     </ng-template>
+    </span>
+    <app-scoreboard></app-scoreboard>
 </div>

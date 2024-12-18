@@ -1,0 +1,6 @@
+<h2 mat-dialog-title class="dialog-title">Wygrała drużyna {{data.winningTeamName}}</h2>
+<mat-dialog-content>
+  <div>Gratulacje, drużyno {{data.winningTeamName}}! Pokonaliście drużyn{{data.losingTeamNames.length > 1 ? "y": "ę"}} {{data.losingTeamNames.join(" i ")}} i pomogliście Januszowi i Grażynie zorganizować niezapomniane święta!</div>
+<mat-dialog-actions>
+  <button mat-button cdkFocusInitial (click)="onButtonPress(true)">Koniec gry</button>
+</mat-dialog-actions>

@@ -13,6 +13,8 @@ import { QuestionDialogComponent } from "../question-dialog/question-dialog.comp
 import { MatDialog } from "@angular/material/dialog";
 import { GameStateActions } from "../store/gamestate.actions";
 import { QuestionRandomizerService } from "../questionRandomizer/question-randomizer.service";
+import { FinishDialogComponent } from "../finish-dialog/finish-dialog.component";
+import { mapPlayerNoToColorPolish } from "../utils/game.utils";
 
 @Component({
     selector: "board",
@@ -23,6 +25,8 @@ import { QuestionRandomizerService } from "../questionRandomizer/question-random
 })
 export class BoardComponent implements OnInit {
     gameState$ = this.store.select(selectGameState).pipe(map(state => state))
+
+    gameStateSub: Subscription | null = null;
     
     currentDiceThrowSub: Subscription | null = null
     
@@ -49,6 +53,8 @@ export class BoardComponent implements OnInit {
         this.currentDiceThrowSub = this.store.select(selectCurrentDiceThrow).subscribe(currentDice => {
             this.openDialog(currentDice)
         });
+        
+        this.gameStateSub = this.gameState$.subscribe(state => this.checkIfWon(state));
     }
 
     openDialog(currentDice?: number) {
@@ -62,7 +68,9 @@ export class BoardComponent implements OnInit {
                     currentPlayer,
                     currentDiceThrow: currentDice,
                     question
-                }
+                },
+                maxHeight: '100vh',
+                maxWidth: '60vw',
             })
             dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
                 if (result) {
@@ -75,13 +83,28 @@ export class BoardComponent implements OnInit {
             })
         }
     }
+    checkIfWon(state: number[]) {
+        const playerThatWon = state.indexOf(59);
+        if (playerThatWon > -1) {
+            const allIndexes = [...Array(state.length).keys()]
+            allIndexes.splice(playerThatWon, 1)
+            const playersThatLost = allIndexes.map(playerNo => mapPlayerNoToColorPolish(playerNo))
+            this.dialog.open(FinishDialogComponent, {
+                data: {
+                    winningTeamName: mapPlayerNoToColorPolish(playerThatWon),
+                    losingTeamNames: playersThatLost
+                },
+                maxHeight: '100vh',
+                maxWidth: '60vw',
+            })
+        }
+    }
     
     determineFieldType(row: number, field:number) {
         if (row*10 + field === 6*10-1) {
             return "finish"
         }
-        if ((row)*10 + field === 0) return "normal"
-        if ((row*6 + field ) % 5 === 0) {
+        if ([3, 7, 11, 17, 21, 24, 28, 32, 37, 41, 46, 50, 55].includes(row*10 + field)) {
             return "chance"
         }
         return "normal"

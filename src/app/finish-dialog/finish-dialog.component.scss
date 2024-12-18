@@ -4,19 +4,10 @@
     color: gray;
 }
 mat-dialog-content {
-    p {
+    div {
+        text-align: center;
         line-height: normal;
-        text-align: justify;
         font-size: 5.5vh;
         color: black;
-    }
-}
-
-.buttons {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    button {
-    font-size: 3.5vh;
     }
 }

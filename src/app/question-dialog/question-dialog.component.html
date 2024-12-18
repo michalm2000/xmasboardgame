@@ -1,7 +1,9 @@
-<h2 mat-dialog-title>Pytanie za {{data.currentDiceThrow}} oczek</h2>
+<h2 class="dialog-title" mat-dialog-title>Pytanie z poziomu {{data.currentDiceThrow}}</h2>
 <mat-dialog-content>
   <p>{{data.question}}</p>
 <mat-dialog-actions>
+  <div class="buttons">
   <button mat-button (click)="onButtonPress(false)">Błędna odpowiedź</button>
   <button mat-button cdkFocusInitial (click)="onButtonPress(true)">Poprawna odpowiedź</button>
+  </div>  
 </mat-dialog-actions>
